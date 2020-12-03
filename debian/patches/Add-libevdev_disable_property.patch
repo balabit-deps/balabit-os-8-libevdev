@@ -1,0 +1,72 @@
+Add libevdev_disable_property
+
+Backport upstream commit:
+https://gitlab.freedesktop.org/libevdev/libevdev/-/commit/4226c7801b4ea1b0c7d1eaac47ca24ece8f24809
+
+--- a/libevdev/libevdev.c
++++ b/libevdev/libevdev.c
+@@ -1301,6 +1301,16 @@
+ }
+ 
+ LIBEVDEV_EXPORT int
++libevdev_disable_property(struct libevdev *dev, unsigned int prop)
++{
++	if (prop > INPUT_PROP_MAX)
++		return -1;
++
++	clear_bit(dev->props, prop);
++	return 0;
++}
++
++LIBEVDEV_EXPORT int
+ libevdev_has_event_type(const struct libevdev *dev, unsigned int type)
+ {
+ 	return type == EV_SYN ||(type <= EV_MAX && bit_is_set(dev->bits, type));
+--- a/libevdev/libevdev.h
++++ b/libevdev/libevdev.h
+@@ -1387,6 +1387,16 @@
+ int libevdev_enable_property(struct libevdev *dev, unsigned int prop);
+ 
+ /**
++ * @ingroup kernel
++ *
++ * @param dev The evdev device
++ * @param prop The input property to disable, one of INPUT_PROP_...
++ *
++ * @return 0 on success or -1 on failure
++ */
++int libevdev_disable_property(struct libevdev *dev, unsigned int prop);
++
++/**
+  * @ingroup bits
+  *
+  * @param dev The evdev device, already initialized with libevdev_set_fd()
+--- a/test/test-libevdev-has-event.c
++++ b/test/test-libevdev-has-event.c
+@@ -305,6 +305,13 @@
+ 	ck_assert_int_eq(libevdev_has_property(dev, INPUT_PROP_DIRECT), 0);
+ 	ck_assert_int_eq(libevdev_has_property(dev, INPUT_PROP_BUTTONPAD), 1);
+ 
++	/* Test disabling the properties too */
++	ck_assert_int_eq(libevdev_disable_property(dev, INPUT_PROP_MAX + 1), -1);
++	ck_assert_int_eq(libevdev_disable_property(dev, INPUT_PROP_DIRECT), 0);
++	ck_assert_int_eq(libevdev_disable_property(dev, INPUT_PROP_BUTTONPAD), 0);
++	ck_assert_int_eq(libevdev_has_property(dev, INPUT_PROP_DIRECT), 0);
++	ck_assert_int_eq(libevdev_has_property(dev, INPUT_PROP_BUTTONPAD), 0);
++
+ 	uinput_device_free(uidev);
+ 	libevdev_free(dev);
+ }
+--- a/libevdev/libevdev.sym
++++ b/libevdev/libevdev.sym
+@@ -131,3 +131,10 @@
+ local:
+ 	*;
+ } LIBEVDEV_1_6;
++
++LIBEVDEV_1_10 {
++global:
++	libevdev_disable_property;
++local:
++	*;
++} LIBEVDEV_1_7;

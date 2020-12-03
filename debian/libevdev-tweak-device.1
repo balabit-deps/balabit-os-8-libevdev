@@ -1,0 +1,96 @@
+.TH libevdev-tweak-device 1 "March 4, 2015" libevdev-tools
+.SH NAME
+libevdev-tweak-device \- evdev device configuration tool
+.SH SYNOPSIS
+.B libevdev-tweak-device
+.BR \-\-abs " <\fIaxis\fP>"
+.RB [ \-\-min " <\fImin\fP>]"
+.RB [ \-\-max " <\fImax\fP>]"
+.RB [ \-\-res " <\fIres\fP>]"
+.RB [ \-\-fuzz " <\fIfuzz\fP>]"
+.RB [ \-\-flat " <\fIflat\fP>]"
+.RI < device >
+.PP
+.B libevdev-tweak-device
+.BR \-\-led " <\fIled\fP>"
+.BR \-\-on | \-\-off
+.RI < device >
+.SH DESCRIPTION
+.B libevdev-tweak-device
+allows setting absolute axis parameters and controlling LEDs.
+.SH OPTIONS
+The first form of the command controls axis parameters. The options
+are:
+.TP
+.BR \-\-abs " <\fIaxis\fP>"
+specifies the axis to tweak; one of
+.BR ABS_X ,
+.BR ABS_Y ,
+.BR ABS_Z ,
+.BR ABS_RX ,
+.BR ABS_RY ,
+.BR ABS_RZ ,
+.BR ABS_THROTTLE ,
+.BR ABS_RUDDER ,
+.BR ABS_WHEEL ,
+.BR ABS_GAS ,
+.BR ABS_BRAKE ,
+.BR ABS_HAT0X ,
+.BR ABS_HAT0Y ,
+.BR ABS_HAT1X ,
+.BR ABS_HAT1Y ,
+.BR ABS_HAT2X ,
+.BR ABS_HAT2Y ,
+.BR ABS_HAT3X ,
+.BR ABS_HAT3Y ,
+.BR ABS_PRESSURE ,
+.BR ABS_DISTANCE ,
+.BR ABS_TILT_X ,
+.BR ABS_TILT_Y ,
+.BR ABS_TOOL_WIDTH ,
+.B ABS_VOLUME
+depending on the \fIdevice\fP's capabilities.
+.TP
+.BR \-\-min " <\fImin\fP>"
+specifies the minimum for the axis.
+.TP
+.BR \-\-max " <\fImax\fP>"
+specifies the maximum for the axis.
+.TP
+.BR \-\-res " <\fIresolution\fP>"
+specifies the resolution for the axis.
+.TP
+.BR \-\-fuzz " <\fIfuzz\fP>"
+specifies the fuzz for the axis.
+.TP
+.BR \-\-flat " <\fIflat\fP>"
+specifies the flat for the axis.
+.PP
+The second form of the command controls LEDs. The options are:
+.TP
+.BR \-\-led " <\fIled\fP>"
+specifies the LED to control; one of
+.BR LED_NUML ,
+.BR LED_CAPSL ,
+.BR LED_SCROLLL ,
+.BR LED_COMPOSE ,
+.BR LED_KANA ,
+.BR LED_SLEEP ,
+.BR LED_SUSPEND ,
+.BR LED_MUTE ,
+.BR LED_MISC ,
+.BR LED_MAIL ,
+.B LED_CHARGING
+depending on the device's capabilities.
+.TP
+.B \-\-on
+switches the LED on.
+.TP
+.B \-\-off
+switches the LED off.
+.SH AUTHORS
+\fBlibevdev-tweak-device\fP was written by Peter Hutterer for Red Hat,
+Inc. This manual page was adapted from the program usage information
+by Stephen Kitt <skitt@debian.org>, for the Debian GNU/Linux system
+(but may be used by others). It was last modified for \fBlibevdev\fP
+version 1.4.
