@@ -1,5 +1,6 @@
 Source: libevdev
-Maintainer: Stephen Kitt <skitt@debian.org>
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+XSBC-Original-Maintainer: Stephen Kitt <skitt@debian.org>
 Section: libs
 Priority: optional
 Build-Depends: check,

@@ -1,3 +1,9 @@
+libevdev (1.9.0+dfsg-1ubuntu0.2) focal-security; urgency=medium
+
+  * No change rebuild in -security pocket.
+
+ -- Alex Murray <alex.murray@canonical.com>  Thu, 14 Apr 2022 13:43:31 +0930
+
 libevdev (1.9.0+dfsg-1ubuntu0.1) focal; urgency=medium
 
   * debian/patches/Add libevdev_disable_property:
